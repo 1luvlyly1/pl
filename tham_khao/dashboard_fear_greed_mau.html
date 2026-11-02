@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dashboard chỉ số Fear &amp; Greed khách hàng (dữ liệu mẫu)</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;600&amp;display=swap">
+<style>
+:root{--bg:#F3F4F6;--card:#FFFFFF;--ink:#18212C;--muted:#5B6573;--soft:#3E4A58;--line:#DDE1E6;--line2:#E6E9ED;--chip:#EEF0F3;
+--b0:#2D5B8E;--b1:#7FA6CE;--b2:#A8ADB5;--b3:#E59A52;--b4:#A94E19;
+--body:"Be Vietnam Pro","Segoe UI",Arial,sans-serif;--mono:"JetBrains Mono",Consolas,monospace}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5}
+.wrap{max-width:1240px;margin:0 auto;padding:32px max(16px,2vw) 56px;display:flex;flex-direction:column;gap:24px}
+h1{margin:0;font-size:32px;font-weight:700;letter-spacing:-.01em;line-height:1.2}
+h2{margin:0;font-size:18px;font-weight:700}
+p{margin:0}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.muted{color:var(--muted)} .small{font-size:13px} .xs{font-size:12px}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.row{display:flex;flex-wrap:wrap;gap:24px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.half{flex:1 1 440px}
+.head{display:flex;justify-content:space-between;align-items:baseline;gap:8px 16px;flex-wrap:wrap}
+.badge{font-size:12px;font-weight:600;padding:2px 10px;border-radius:999px;background:#FCE9D9;color:#8A3F12}
+.pills{display:flex;flex-wrap:wrap;gap:8px}
+.pill{min-height:44px;padding:8px 16px;border-radius:999px;border:1px solid #C9D0D8;background:#fff;color:var(--ink);font:inherit;font-size:14px;font-weight:600;cursor:pointer}
+.pill[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.pill:focus-visible{outline:2px solid var(--b0);outline-offset:2px}
+.gauge svg{width:100%;max-width:360px;height:auto;display:block;margin:0 auto}
+.value{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap}
+.big{font-family:var(--mono);font-size:52px;font-weight:600;line-height:1}
+.chipband{font-size:15px;font-weight:600;padding:6px 14px;border-radius:999px}
+.prev{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;border-top:1px solid var(--line2);padding-top:14px}
+.prev div{display:flex;flex-direction:column;gap:2px}
+.gapbar{flex-direction:row;align-items:center;flex-wrap:wrap;gap:12px 20px;padding:18px 24px}
+.gaptag{font-size:13px;font-weight:700;padding:4px 12px;border-radius:6px;white-space:nowrap}
+.matrix{position:relative;height:360px;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.cells{position:absolute;inset:0;display:grid;grid-template-columns:1fr 2fr 1fr;grid-template-rows:1fr 1fr}
+.cells div{padding:10px;font-size:12px;color:var(--soft);border-right:1px dashed #C9D0D8;border-bottom:1px dashed #C9D0D8;display:flex;flex-direction:column}
+.cells div:nth-child(3n){border-right:none}.cells div:nth-child(n+4){border-bottom:none;justify-content:flex-end}
+.dot{position:absolute;transform:translate(-50%,-50%);display:flex;align-items:center;gap:6px;pointer-events:none}
+.dot i{display:block;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px var(--ink)}
+.dot span{font-size:12px;background:#fff;padding:1px 6px;border-radius:4px;white-space:nowrap}
+.axis{display:flex;justify-content:space-between;gap:8px;font-size:12px;color:var(--muted)}
+.comp{display:flex;flex-direction:column;gap:6px}
+.code{font-family:var(--mono);font-size:11px;padding:1px 6px;border-radius:4px;background:var(--chip);color:var(--soft)}
+.track{height:10px;border-radius:999px;background:var(--line2);overflow:hidden}.track div{height:100%;border-radius:999px}
+.chart{display:flex;gap:8px}.yaxis{display:flex;flex-direction:column;justify-content:space-between;font-size:11px;color:var(--muted);font-family:var(--mono)}
+.chart svg{width:100%;height:auto;display:block}
+.months{display:flex;justify-content:space-between;gap:4px;font-size:11px;color:var(--muted);font-family:var(--mono);overflow:hidden}
+.legend{display:flex;gap:20px;flex-wrap:wrap;font-size:13px;color:var(--soft)}.legend span{display:inline-flex;align-items:center;gap:8px}
+.ev{display:flex;flex-wrap:wrap;gap:8px 16px;padding:14px 0;border-top:1px solid var(--line2)}
+.ev .date{flex:0 0 64px;font-family:var(--mono);font-size:13px;color:var(--muted)}
+.ev .body{flex:1 1 520px;min-width:0;display:flex;flex-direction:column;gap:8px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;font-size:12px}.tags span{padding:2px 8px;border-radius:999px;background:var(--chip);color:var(--soft)}
+code.tag{display:block;font-family:var(--mono);font-size:12px;color:var(--soft);background:#F5F6F8;border:1px solid var(--line2);border-radius:6px;padding:6px 10px;overflow-x:auto;white-space:nowrap}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head" style="align-items:flex-end">
+    <div style="display:flex;flex-direction:column;gap:6px;min-width:0">
+      <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center"><span class="eyebrow">Playbook Fear &amp; Greed · Bản dựng mẫu</span><span class="badge">Dữ liệu mẫu – chưa kết nối dữ liệu thật</span></div>
+      <h1>Chỉ số Fear &amp; Greed khách hàng</h1>
+      <p class="muted" style="max-width:68ch">Hai chỉ số đặt cạnh nhau: hành vi thực tế của khách hàng (từ dữ liệu giao dịch) và áp lực từ tin tức bên ngoài (từ kết luận của playbook). Thang 0–100, cách đọc giống chỉ số Fear &amp; Greed của CNN.</p>
+    </div>
+    <div class="pills" id="pills" role="group" aria-label="Chọn phân khúc"></div>
+  </div>
+  <div class="row">
+    <div class="card half gauge" id="g-beh"></div>
+    <div class="card half gauge" id="g-news"></div>
+  </div>
+  <div class="card gapbar" id="gap"></div>
+  <div class="row">
+    <div class="card" style="flex:1 1 500px">
+      <div><h2>Ma trận tác động × tâm lý</h2><p class="small muted">Trục dọc: chỉ số dòng tiền thực (lương, doanh thu QR, hóa đơn, chuỗi cung ứng). Trục ngang: chỉ số hành vi.</p></div>
+      <div id="quad" style="font-size:14px"></div>
+      <div class="matrix">
+        <div class="cells">
+          <div style="background:#EEF3F9"><strong>Bi quan quá mức</strong>Cơ bản tốt nhưng khách sợ: cơ hội ngược chu kỳ</div>
+          <div style="background:#F7F8FA"><strong>Ô A · Cơ hội lành mạnh</strong>Mở rộng theo dòng tiền thật</div>
+          <div style="background:#FCEFE3"><strong>Ô B · Cơ hội nóng</strong>Mở rộng có trần, soi tín hiệu G</div>
+          <div style="background:#E4ECF5"><strong>Ô C · Rủi ro khuếch đại</strong>Ưu tiên thanh khoản, chống lừa đảo</div>
+          <div style="background:#F7F8FA"><strong>Ô D · Rủi ro cơ bản</strong>Xử lý theo playbook rủi ro</div>
+          <div style="background:#F8E3D3"><strong>Lạc quan sai chỗ</strong>Cơ bản xấu nhưng khách tham: rủi ro cao nhất</div>
+        </div>
+        <div id="dots"></div>
+      </div>
+      <div class="axis"><span>← Sợ hãi cực độ</span><span>Trung lập</span><span>Tham lam cực độ →</span></div>
+    </div>
+    <div class="card" style="flex:1 1 500px">
+      <div><h2>7 thành phần của chỉ số hành vi</h2><p class="small muted">Mỗi thành phần quy về phân vị 0–100 so với lịch sử của chính nó, rồi lấy trung bình. Cao hơn = tham lam hơn.</p></div>
+      <div id="comps" style="display:flex;flex-direction:column;gap:14px"></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="head"><h2>Diễn biến 12 tháng</h2>
+      <div class="legend"><span><i style="display:inline-block;width:22px;height:3px;background:var(--ink)"></i>Chỉ số hành vi</span><span><i style="display:inline-block;width:22px;border-top:3px dashed #6B7686"></i>Chỉ số tin tức</span></div></div>
+    <div class="chart"><div class="yaxis"><span>100</span><span>75</span><span>50</span><span>25</span><span>0</span></div>
+      <div style="flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:6px"><div id="chart"></div><div class="months" id="months"></div></div></div>
+  </div>
+  <div class="card">
+    <div class="head"><div><h2>Sự kiện gần đây từ playbook</h2><p class="small muted">Nguồn của chỉ số tin tức. Mỗi kết luận văn xuôi kết thúc bằng dòng nhãn [FG] để code tổng hợp.</p></div>
+      <span class="small" id="evsum" style="color:var(--soft)"></span></div>
+    <div id="events"></div>
+  </div>
+  <p class="small muted">Mọi con số trên trang là dữ liệu mẫu để hình dung cách hiển thị. Chỉ số tin tức chỉ để quan sát, không đưa ngược vào agent, để tránh vòng tự khuếch đại. Chỉ số hành vi có thể làm bối cảnh thị trường cho agent.</p>
+</div>
+
+<!-- DỮ LIỆU: thay khối JSON dưới đây bằng nội dung index_spec/sample_data.json (hoặc output pipeline thật), giữ nguyên cấu trúc. -->
+<script type="application/json" id="data">
+{"phan_khuc": {"all": {"ten": "Toàn ngân hàng", "hanh_vi": 58, "tin_tuc": 71, "dong_tien_thuc": 57, "hanh_vi_truoc": [56, 52, 47], "tin_tuc_truoc": [68, 63, 55]}, "KHCN": {"ten": "KHCN", "hanh_vi": 77, "tin_tuc": 74, "dong_tien_thuc": 62, "hanh_vi_truoc": [75, 70, 61], "tin_tuc_truoc": [73, 69, 60]}, "SME": {"ten": "SME", "hanh_vi": 38, "tin_tuc": 52, "dong_tien_thuc": 40, "hanh_vi_truoc": [40, 43, 47], "tin_tuc_truoc": [53, 55, 57]}, "CIB": {"ten": "DN lớn", "hanh_vi": 55, "tin_tuc": 69, "dong_tien_thuc": 60, "hanh_vi_truoc": [54, 51, 48], "tin_tuc_truoc": [67, 62, 56]}}, "thanh_phan_hanh_vi": [{"ten": "Đòn bẩy để đầu tư", "ma": "G01", "mo_ta": "Tiền vay chuyển ngay sang chứng khoán hoặc đặt cọc BĐS", "all": 68, "KHCN": 87, "SME": 48, "CIB": 65}, {"ten": "Mua ròng iFund, iBond", "ma": "G03 · S08", "mo_ta": "Dòng tiền vào sản phẩm đầu tư so với bán lại", "all": 72, "KHCN": 91, "SME": 52, "CIB": 69}, {"ten": "Rút tiền mặt (đảo dấu)", "ma": "S07", "mo_ta": "Rút qua CDM và tại quầy so với trung bình 50 ngày", "all": 54, "KHCN": 73, "SME": 34, "CIB": 51}, {"ten": "Tiền gửi chuyển đi (đảo dấu)", "ma": "F01", "mo_ta": "Chuyển tiền gửi sang ngân hàng khác", "all": 61, "KHCN": 80, "SME": 41, "CIB": 58}, {"ten": "Kỳ hạn tiền gửi", "ma": "F02", "mo_ta": "Tỷ trọng kỳ hạn dài so với kỳ hạn ngắn", "all": 47, "KHCN": 66, "SME": 27, "CIB": 44}, {"ten": "Định giá tài sản bảo đảm", "ma": "G04", "mo_ta": "Giá định giá so với giá giao dịch thực", "all": 59, "KHCN": 78, "SME": 39, "CIB": 56}, {"ten": "Nhu cầu hạn mức doanh nghiệp", "ma": "G05 · F04", "mo_ta": "Xin tăng hạn mức so với ngừng giải ngân", "all": 45, "KHCN": 64, "SME": 25, "CIB": 42}], "lich_su_12_thang": {"thang": ["T12/25", "T1/26", "T2/26", "T3/26", "T4/26", "T5/26", "T6/26", "T7/26", "T8/26", "T9/26", "T10/26", "T11/26"], "hanh_vi_all": [41, 38, 44, 47, 45, 50, 53, 49, 52, 56, 57, 58], "tin_tuc_all": [45, 40, 48, 55, 52, 58, 62, 60, 64, 68, 70, 71]}, "su_kien": [{"ngay": "02/11", "tieu_de": "Xung đột quân sự leo thang tại Trung Đông, giá dầu và vàng tăng mạnh", "nhan": ["[FG] loai_tin=TT | o=D | tam_ly=chua_ro | huong=rui_ro | phan_khuc=CIB,SME,KHCN,NH | muc=co_kha_nang_cao", "[FG] loai_tin=TT | o=A | tam_ly=chua_ro | huong=co_hoi | phan_khuc=CIB,KHCN | muc=co_the", "[FG] loai_tin=GL | o=D | tam_ly=chua_ro | huong=rui_ro | phan_khuc=KHCN,NH | muc=gia_thuyet"]}, {"ngay": "30/10", "tieu_de": "Giá cà phê lập đỉnh, người trồng và đại lý đổ xô trữ hàng", "nhan": ["[FG] loai_tin=TT | o=B | tam_ly=tham | huong=co_hoi | phan_khuc=KHCN,CIB | muc=co_kha_nang_cao", "[FG] loai_tin=TT | o=D | tam_ly=chua_ro | huong=rui_ro | phan_khuc=KHCN,SME,CIB | muc=co_the"]}, {"ngay": "28/10", "tieu_de": "Lãi suất cho vay giảm mạnh, chứng khoán tăng nóng", "nhan": ["[FG] loai_tin=TT | o=A | tam_ly=binh_thuong | huong=co_hoi | phan_khuc=KHCN,CIB | muc=co_kha_nang_cao", "[FG] loai_tin=TT | o=B | tam_ly=tham | huong=ca_hai | phan_khuc=KHCN | muc=co_kha_nang_cao"]}, {"ngay": "25/10", "tieu_de": "Lỗ hổng nghiêm trọng trong thư viện phần mềm dùng cho Android và thiết bị thanh toán", "nhan": ["[FG] loai_tin=GL | o=D | tam_ly=chua_ro | huong=rui_ro | phan_khuc=NH,KHCN,SME | muc=co_the"]}, {"ngay": "22/10", "tieu_de": "Tin đồn thanh khoản ở một ngân hàng khác tại một số tỉnh", "nhan": ["[FG] loai_tin=TT | o=C | tam_ly=so | huong=rui_ro | phan_khuc=KHCN | muc=co_kha_nang_cao", "[FG] loai_tin=TT | o=C | tam_ly=so | huong=co_hoi | phan_khuc=KHCN | muc=co_the"]}, {"ngay": "20/10", "tieu_de": "Làn sóng lừa đảo mạo danh giao hàng ở một nước trong khu vực", "nhan": ["[FG] loai_tin=GL | o=D | tam_ly=chua_ro | huong=rui_ro | phan_khuc=KHCN,NH | muc=co_the"]}, {"ngay": "15/10", "tieu_de": "Tỷ lệ sinh giảm xuống mức thấp kỷ lục", "nhan": ["[FG] loai_tin=GT | o=D | tam_ly=chua_ro | huong=rui_ro | phan_khuc=CIB,SME,KHCN | muc=gia_thuyet", "[FG] loai_tin=GT | o=A | tam_ly=chua_ro | huong=co_hoi | phan_khuc=KHCN | muc=co_the"]}]}
+</script>
+<script>
+(function(){
+var D = JSON.parse(document.getElementById('data').textContent);
+var BANDS=[{to:25,label:'Sợ hãi cực độ',c:'#2D5B8E',fg:'#fff'},{to:45,label:'Sợ hãi',c:'#7FA6CE',fg:'#18212C'},{to:55,label:'Trung lập',c:'#A8ADB5',fg:'#18212C'},{to:75,label:'Tham lam',c:'#E59A52',fg:'#18212C'},{to:101,label:'Tham lam cực độ',c:'#A94E19',fg:'#fff'}];
+function band(v){for(var i=0;i<BANDS.length;i++){if(v<BANDS[i].to)return BANDS[i];}return BANDS[4];}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function pol(v,r){var a=Math.PI*(1-v/100);return[150+r*Math.cos(a),150-r*Math.sin(a)];}
+function arc(a,b){var p=pol(a,120),q=pol(b,120);return 'M '+p[0].toFixed(1)+' '+p[1].toFixed(1)+' A 120 120 0 0 1 '+q[0].toFixed(1)+' '+q[1].toFixed(1);}
+var ARCS=[[0,24.3],[25.7,44.3],[45.7,54.3],[55.7,74.3],[75.7,100]].map(function(x,i){return '<path d="'+arc(x[0],x[1])+'" fill="none" stroke="'+BANDS[i].c+'" stroke-width="22"/>';}).join('');
+var ORDER=Object.keys(D.phan_khuc), seg='all';
+var O_STYLE={A:['#E9EDF2','#18212C'],B:['#E59A52','#18212C'],C:['#2D5B8E','#fff'],D:['#C9D0D8','#18212C']};
+var TAMLY={so:'Sợ hãi',binh_thuong:'Bình thường',tham:'Tham lam',chua_ro:'Tâm lý chưa rõ'};
+var HUONG={rui_ro:'Rủi ro',co_hoi:'Cơ hội',ca_hai:'Rủi ro và cơ hội'};
+var MUC={co_kha_nang_cao:'Có khả năng cao',co_the:'Có thể',gia_thuyet:'Giả thuyết'};
+var LOAI={TT:'Tin trực tiếp',GT:'Tin gián tiếp',GL:'Gian lận · an ninh mạng',IO:'Inside-out'};
+var SEGNAME={KHCN:'KHCN',SME:'SME',CIB:'DN lớn',NH:'Cấp ngân hàng'};
+function parseTag(t){var o={};t.replace('[FG] ','').split(' | ').forEach(function(kv){var p=kv.split('=');o[p[0]]=p[1];});return o;}
+
+function gauge(title,src,v,prev){
+  var b=band(v),n=pol(v,92),when=['Hôm qua','1 tuần trước','1 tháng trước'];
+  return '<div class="head"><h2>'+title+'</h2><span class="small muted">'+src+'</span></div>'+
+  '<svg viewBox="0 0 300 172" role="img" aria-label="'+title+': '+v+' điểm, '+b.label+'">'+ARCS+
+  '<line x1="150" y1="150" x2="'+n[0].toFixed(1)+'" y2="'+n[1].toFixed(1)+'" stroke="#18212C" stroke-width="4" stroke-linecap="round"/><circle cx="150" cy="150" r="8" fill="#18212C"/>'+
+  '<text x="30" y="170" font-size="11" fill="#5B6573" text-anchor="middle">0</text><text x="150" y="11" font-size="11" fill="#5B6573" text-anchor="middle">50</text><text x="270" y="170" font-size="11" fill="#5B6573" text-anchor="middle">100</text></svg>'+
+  '<div class="value"><span class="big">'+v+'</span><span class="chipband" style="background:'+b.c+';color:'+b.fg+'">'+b.label+'</span></div>'+
+  '<div class="prev">'+prev.map(function(p,i){return '<div><span class="xs muted">'+when[i]+'</span><span class="mono" style="font-size:18px;font-weight:600">'+p+'</span><span class="xs muted">'+band(p).label+'</span></div>';}).join('')+'</div>';
+}
+
+function render(){
+  var S=D.phan_khuc[seg], beh=S.hanh_vi, news=S.tin_tuc, y=S.dong_tien_thuc;
+  document.getElementById('pills').innerHTML=ORDER.map(function(k){return '<button type="button" class="pill" data-k="'+k+'" aria-pressed="'+(k===seg)+'">'+esc(D.phan_khuc[k].ten)+'</button>';}).join('');
+  document.getElementById('g-beh').innerHTML=gauge('Chỉ số hành vi','Dữ liệu giao dịch nội bộ · 7 thành phần',beh,S.hanh_vi_truoc);
+  document.getElementById('g-news').innerHTML=gauge('Chỉ số tin tức','Kết luận của playbook · 30 ngày gần nhất',news,S.tin_tuc_truoc);
+
+  var d=news-beh, ad=Math.abs(d), tag, title, text;
+  if(ad>=15) tag=['Lệch lớn','#A94E19','#fff']; else if(ad>=8) tag=['Lệch vừa','#FCE9D9','#8A3F12']; else tag=['Đồng pha','#E4ECF5','#1E3F63'];
+  if(ad<8){title='Tin tức và hành vi đang đồng pha.';text='Tâm lý khách hàng phản ánh đúng áp lực bên ngoài; đọc theo ô của ma trận là đủ.';}
+  else if(d>0){title='Tin tức đang nóng hơn hành vi thực tế.';text='Theo dõi tín hiệu G01–G05 xem hành vi có bắt kịp không. Nếu không, tin tức có thể đang quá đà, hoặc khách hàng đã bắt đầu thận trọng: dấu hiệu đảo chiều sớm.';}
+  else {title='Hành vi đang nóng hơn tin tức.';text='Khách hàng tự đẩy tâm lý lên dù tin tức không ủng hộ. Soi kỹ đòn bẩy để đầu tư (G01) và định giá tài sản bảo đảm (G04).';}
+  document.getElementById('gap').innerHTML='<span class="gaptag" style="background:'+tag[1]+';color:'+tag[2]+'">'+tag[0]+'</span><p style="flex:1 1 420px;min-width:0"><strong>'+title+'</strong> '+text+'</p><span class="small muted" style="white-space:nowrap">Chênh lệch tin tức − hành vi: <span class="mono" style="font-weight:600;color:var(--ink)">'+(d>0?'+':'')+d+'</span></span>';
+
+  var q;
+  if(y>=50){q=beh>=75?['Ô B – Cơ hội nóng','Cơ hội có thật nhưng rủi ro đang tích tụ; mở rộng có trần.']:beh<25?['Bi quan quá mức','Dòng tiền tốt nhưng khách sợ; tìm cơ hội ngược chu kỳ.']:['Ô A – Cơ hội lành mạnh','Mở rộng có kiểm soát theo dòng tiền thật.'];}
+  else {q=beh<25?['Ô C – Rủi ro khuếch đại','Ưu tiên thanh khoản, truyền thông và chống lừa đảo.']:beh>=75?['Lạc quan sai chỗ','Dòng tiền xấu nhưng khách vẫn tham: rủi ro cao nhất.']:['Ô D – Rủi ro cơ bản','Xử lý theo playbook rủi ro; xét cơ hội ngược chu kỳ.'];}
+  document.getElementById('quad').innerHTML='Đang chọn <strong>'+esc(S.ten)+'</strong>: <strong>'+q[0]+'</strong>. '+q[1];
+  document.getElementById('dots').innerHTML=ORDER.map(function(k){var s=D.phan_khuc[k],sel=k===seg,sz=sel?20:12;
+    return '<div class="dot" style="left:'+Math.max(4,Math.min(96,s.hanh_vi))+'%;top:'+Math.max(6,Math.min(94,100-s.dong_tien_thuc))+'%"><i style="width:'+sz+'px;height:'+sz+'px;background:'+(k==='all'?'#18212C':band(s.hanh_vi).c)+'"></i><span style="font-weight:'+(sel?700:500)+'">'+esc(s.ten)+' '+s.hanh_vi+'</span></div>';}).join('');
+
+  document.getElementById('comps').innerHTML=D.thanh_phan_hanh_vi.map(function(c){var v=c[seg],b=band(v);
+    return '<div class="comp"><div class="head" style="align-items:baseline"><div style="display:flex;gap:8px;align-items:baseline;flex-wrap:wrap;min-width:0"><span style="font-weight:600">'+esc(c.ten)+'</span><span class="code">'+esc(c.ma)+'</span></div><span class="small muted" style="white-space:nowrap"><span class="mono" style="font-weight:600;color:var(--ink)">'+v+'</span> · '+b.label+'</span></div><div class="track"><div style="width:'+v+'%;background:'+b.c+'"></div></div><span class="xs muted">'+esc(c.mo_ta)+'</span></div>';}).join('');
+
+  var H=D.lich_su_12_thang, sb=beh-H.hanh_vi_all[11], sn=news-H.tin_tuc_all[11];
+  function pts(a,sh){return a.map(function(v,i){var val=Math.max(1,Math.min(99,v+sh*(i/11)));return (i*600/11).toFixed(1)+','+(200-val*2).toFixed(1);}).join(' ');}
+  document.getElementById('chart').innerHTML='<svg viewBox="0 0 600 200" role="img" aria-label="Diễn biến 12 tháng của '+esc(S.ten)+'">'+
+   '<rect x="0" y="0" width="600" height="50" fill="#A94E19" fill-opacity=".10"/><rect x="0" y="50" width="600" height="40" fill="#E59A52" fill-opacity=".12"/><rect x="0" y="90" width="600" height="20" fill="#A8ADB5" fill-opacity=".14"/><rect x="0" y="110" width="600" height="40" fill="#7FA6CE" fill-opacity=".14"/><rect x="0" y="150" width="600" height="50" fill="#2D5B8E" fill-opacity=".10"/>'+
+   '<line x1="0" y1="100" x2="600" y2="100" stroke="#C9D0D8"/><polyline points="'+pts(H.tin_tuc_all,sn)+'" fill="none" stroke="#6B7686" stroke-width="2.5" stroke-dasharray="7 5" stroke-linejoin="round"/><polyline points="'+pts(H.hanh_vi_all,sb)+'" fill="none" stroke="#18212C" stroke-width="3" stroke-linejoin="round"/>'+
+   '<circle cx="600" cy="'+(200-news*2)+'" r="5" fill="#6B7686"/><circle cx="600" cy="'+(200-beh*2)+'" r="5.5" fill="#18212C"/></svg>';
+  document.getElementById('months').innerHTML=H.thang.map(function(t){return '<span>'+t+'</span>';}).join('');
+
+  var evs=D.su_kien.map(function(e){var tags=e.nhan.map(parseTag),segs=[];tags.forEach(function(t){t.phan_khuc.split(',').forEach(function(p){if(segs.indexOf(p)<0)segs.push(p);});});return {e:e,tags:tags,segs:segs};})
+    .filter(function(x){return seg==='all'||x.segs.indexOf(seg)>=0;});
+  document.getElementById('events').innerHTML=evs.length?evs.map(function(x){var t=x.tags[0],o=t.o.split(',')[0],st=O_STYLE[o];
+    return '<div class="ev"><span class="date">'+esc(x.e.ngay)+'</span><div class="body"><span style="font-weight:600">'+esc(x.e.tieu_de)+'</span><div class="tags"><span style="background:'+st[0]+';color:'+st[1]+';font-weight:600">Ô '+esc(t.o)+'</span><span>'+LOAI[t.loai_tin]+'</span><span>'+HUONG[t.huong]+'</span><span>'+TAMLY[t.tam_ly]+'</span><span>'+x.segs.map(function(s){return SEGNAME[s]||s;}).join(' · ')+'</span><span>'+MUC[t.muc]+'</span></div>'+x.e.nhan.map(function(n){return '<code class="tag">'+esc(n)+'</code>';}).join('')+'</div></div>';}).join('')
+    :'<p class="muted" style="padding:14px 0;border-top:1px solid var(--line2)">Chưa có sự kiện nào chạm tới phân khúc này trong 30 ngày.</p>';
+  var cnt={TT:0,GT:0,GL:0,IO:0},nb=0;evs.forEach(function(x){x.tags.forEach(function(t){cnt[t.loai_tin]++;nb++;});});
+  document.getElementById('evsum').textContent=evs.length+' sự kiện · '+nb+' nhánh · trực tiếp '+cnt.TT+' · gián tiếp '+cnt.GT+' · gian lận, an ninh mạng '+cnt.GL+' (dữ liệu mẫu)';
+}
+document.getElementById('pills').addEventListener('click',function(e){var b=e.target.closest('button[data-k]');if(b){seg=b.getAttribute('data-k');render();}});
+render();
+})();
+</script>
+</body>
+</html>
