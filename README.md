@@ -91,13 +91,3 @@ Theo `playbook/00_INDEX.md` mục 3. Tóm tắt:
 - Chỉ số Fear & Greed là chỉ số nội bộ để đọc tâm lý khách hàng, **không phải dự báo thị trường**.
 - Trang HTML cần mạng để tải font; khi offline vẫn hiển thị đúng tiếng Việt.
 
-## 4. Lịch sử phiên bản
-| Phiên bản | Ngày | Thay đổi |
-|---|---|---|
-| v1.2 | 26/10/2026 | Playbook rủi ro, đầu ra văn xuôi, bỏ sàng lọc sự kiện |
-| v2.0 | 02/11/2026 | Hai lăng kính Fear & Greed, ma trận ô A–D, tín hiệu F/G, bản đồ cơ hội |
-| v2.1 | 02/11/2026 | Dòng nhãn `[FG]`, bối cảnh chỉ số hành vi, `index_spec/`, dashboard mẫu |
-| v3.0 | 02/11/2026 | 3 phân khúc (KHCN gồm hộ kinh doanh, SME, DN lớn) + cấp ngân hàng; module tin `news/` với nhóm `TT`, `GT`, `GL`; kênh `L13` `L14`; tín hiệu `X01`–`X08`; nhãn thêm `loai_tin`; 4 bài mẫu mới |
-| v3.1 | 03/11/2026 | Module ngành `industry/`: file định tuyến biến số → ngành và 18 file ngành Việt Nam (`I01`–`I18`); nối vào `00_INDEX` (mục 4d), `core/04`, `news/nw_01`, `news/nw_02`. Trang luồng chạy giữ nguyên bản v3.0 |
-
-**Đổi tên file so với v2.1:** `seg_01_KHCN` → `seg_01a_KHCN_ca_nhan`; `seg_02_HKD` → `seg_01b_KHCN_ho_kinh_doanh`; `seg_03_SME` → `seg_02_SME`; `seg_04_CIB` → `seg_03_DN_lon`; `seg_05_NDT` → bỏ, nội dung chuyển vào `bank/ngan_hang.md`. Mã sản phẩm (`CN-`, `HKD-`, `SME-`, `CIB-`, `IR-`) giữ nguyên.
