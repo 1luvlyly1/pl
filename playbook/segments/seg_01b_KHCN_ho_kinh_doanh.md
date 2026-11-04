@@ -32,18 +32,18 @@ updated: 2026-11-02
 ## (c) Bảng độ nhạy sản phẩm HKD
 | Mã | Sản phẩm | Rủi ro chính | Nhạy với sự kiện | Chiều tác động khi sự kiện xấu |
 |---|---|---|---|---|
-| `HKD-ACC-01` | Tài khoản Hộ kinh doanh | `LQ` `CO` `FR` | Thuế, AML (tách bạch dòng tiền), lừa đảo | Doanh thu về TK giảm; dấu hiệu dùng TK cá nhân thay TK HKD |
-| `HKD-REV-01` | Soundbox | `OR` `BR` | Sự cố thiết bị/mạng, doanh thu giảm | Giảm số giao dịch/ngày |
-| `HKD-REV-02` | Liên kết phần mềm bán hàng (QR liên kết) | `OR` `BR` | Sự cố đối tác phần mềm, thay đổi đối tác | Mất dữ liệu doanh thu, gián đoạn nhận tiền |
-| `HKD-REV-03` | Nhận thanh toán thẻ: SoftPOS / SmartPOS / SoundPOS | `OR` `FR` `BR` | Gian lận thẻ tại điểm bán, sự cố | Tra soát, chargeback |
-| `HKD-LN-01` | Vay tín chấp kinh doanh ShopCash (hạn mức cấp sẵn) | `CR` | Doanh thu giảm, biến cố chủ hộ | Sử dụng hạn mức tăng khi doanh thu giảm = tín hiệu căng thẳng |
-| `HKD-LN-02` | Vay thế chấp kinh doanh ShopCredit | `CR` `CL` | Giá BĐS (TSBĐ thường là nhà ở/mặt bằng), doanh thu | DPD; TSBĐ giảm giá |
-| `HKD-LN-03` | Vay trả góp tín chấp cho chủ HKD | `CR` | Doanh thu, thu nhập chủ hộ | DPD sớm |
-| `HKD-CARD-01` | Thẻ thanh toán Techcombank Visa Seller | `FR` `BR` | Gian lận, chi tiêu nhập hàng | Giảm chi tiêu nhập hàng = HKD thu hẹp |
-| `HKD-DEP-01` | Tiền gửi HKD; Sinh lời tự động | `LQ` | Doanh thu, nhu cầu vốn | Số dư nhàn rỗi giảm |
-| `HKD-INS-01` | BH sức khỏe nhóm; BH toàn diện HKD & DN | `INS` | Dịch bệnh, cháy nổ, thiên tai | Claim tăng |
-| `HKD-DIG-01` | Techcombank Mobile (cho HKD) | `OR` `FR` | Sự cố app | Mất doanh thu trực tiếp trong thời gian gián đoạn |
-| `HKD-SVC-01` | Dịch vụ qua CDM | `OR` | Sự cố máy | Không nộp được tiền mặt doanh thu |
+| `HKD-ACC-01` | Tài khoản Hộ kinh doanh | `LQ` `CO` `FR` | **P1:** mạo danh cơ quan thuế, ngân hàng nhắm chủ hộ; tài khoản bị dùng làm trung gian<br>**P2:** bỏ thuế khoán, kê khai, hóa đơn điện tử; AML tách bạch dòng tiền<br>**P3:** sàn TMĐT khấu trừ thuế thay<br>**P2 (+):** quy định tách tài khoản HKD; HKD chuyển lên DN (`L07`) | **P1:** mất tiền, phong tỏa tài khoản (`X01`)<br>**P2:** doanh thu chảy về TK cá nhân thay TK HKD (`S16`); doanh thu về TK giảm<br>**P3:** đổi kênh bán hàng<br>**(+):** mở mới TK HKD, chuyển đổi lên DN |
+| `HKD-REV-01` | Soundbox | `OR` `BR` | **P1:** sự cố mạng, thiết bị hàng loạt<br>**P2:** sức mua giảm; trả mặt bằng, giới hạn giờ hoạt động, siết vỉa hè<br>**P3:** QR miễn phí của đối thủ | **P1:** không nhận được tiền<br>**P2:** giảm số giao dịch/ngày, số người trả tiền (`S02` `S03`)<br>**P3:** rời bỏ thiết bị |
+| `HKD-REV-02` | Liên kết phần mềm bán hàng (QR liên kết) | `OR` `BR` | **P1:** sự cố, lộ dữ liệu ở đối tác phần mềm (`L13`)<br>**P2:** đối tác đổi chính sách; hóa đơn điện tử từ máy tính tiền<br>**P3 (+):** quy định hóa đơn điện tử thúc đẩy số hóa | **P1:** mất dữ liệu doanh thu, gián đoạn nhận tiền<br>**P2:** chuyển sang đối tác khác<br>**(+):** kết nối mới tăng |
+| `HKD-REV-03` | Nhận thanh toán thẻ: SoftPOS / SmartPOS / SoundPOS | `OR` `FR` `BR` | **P1:** gian lận thẻ tại điểm bán, lộ dữ liệu thẻ<br>**P2:** khách quốc tế giảm, sức mua giảm<br>**P3 (+):** khách du lịch tăng | **P1:** tra soát, chargeback (`X05`)<br>**P2:** doanh số thẻ giảm<br>**(+):** doanh số thẻ tăng |
+| `HKD-LN-01` | Vay tín chấp kinh doanh ShopCash (hạn mức cấp sẵn) | `CR` | **P2:** doanh thu giảm (sức mua, thuế, mặt bằng, giờ hoạt động); dịch bệnh vật nuôi, giá nông sản giảm (với đại lý); biến cố chủ hộ<br>**P3 (+):** mùa Tết, mùa vụ nhập hàng | **P2:** sử dụng hạn mức tăng khi doanh thu giảm = tín hiệu căng thẳng (`S04`); DPD<br>**(+):** nhu cầu vốn mùa vụ, kèm rủi ro xin hạn mức ở giá đỉnh (`G05`) |
+| `HKD-LN-02` | Vay thế chấp kinh doanh ShopCredit | `CR` `CL` | **P2:** doanh thu giảm, trả mặt bằng; giá nhà phố, giá thuê mặt bằng giảm; lãi suất tăng | **P2:** DPD; TSBĐ là nhà ở/mặt bằng giảm giá (`CL`) |
+| `HKD-LN-03` | Vay trả góp tín chấp cho chủ HKD | `CR` | **P2:** doanh thu giảm; chủ hộ ốm đau, biến cố | **P2:** DPD sớm |
+| `HKD-CARD-01` | Thẻ thanh toán Techcombank Visa Seller | `FR` `BR` | **P1:** gian lận thẻ, lộ dữ liệu thẻ<br>**P2:** HKD thu hẹp, giá đầu vào tăng | **P1:** giao dịch trái phép, tra soát<br>**P2:** giảm chi tiêu nhập hàng = HKD thu hẹp |
+| `HKD-DEP-01` | Tiền gửi HKD; Sinh lời tự động | `LQ` | **P2:** doanh thu giảm, cần vốn nhập hàng; giá vàng tăng (tiệm vàng giữ tiền mặt)<br>**P3 (+):** tiền về sau mùa vụ, mùa cao điểm | **P2:** số dư nhàn rỗi giảm<br>**(+):** số dư tăng (`O2`) |
+| `HKD-INS-01` | BH sức khỏe nhóm; BH toàn diện HKD & DN | `INS` | **P1:** cháy chợ, cháy nổ, bão lũ<br>**P2:** dịch bệnh | **P1:** claim tăng theo địa bàn<br>**P2:** claim sức khỏe tăng |
+| `HKD-DIG-01` | Techcombank Mobile (cho HKD) | `OR` `FR` | **P1:** sự cố app; mạo danh, chiếm đoạt tài khoản | **P1:** mất doanh thu trực tiếp trong thời gian gián đoạn; mất tiền (`S13`) |
+| `HKD-SVC-01` | Dịch vụ qua CDM | `OR` | **P1:** sự cố máy, thiên tai, mất điện<br>**P2:** mùa cao điểm tiền mặt | **P1:** không nộp được tiền mặt doanh thu<br>**P2:** máy quá tải, cần tiếp quỹ |
 
 ## (d) Tín hiệu sớm nội bộ – HKD
 - Số giao dịch QR/Soundbox/POS **theo ngày** giảm so với cùng kỳ, theo địa bàn và MCC
@@ -61,7 +61,6 @@ updated: 2026-11-02
 
 ## (f) Danh mục sản phẩm & URL nguồn (chốt 26/10/2026)
 
-Nguồn: https://techcombank.com/ho-kinh-doanh-va-doanh-nghiep-nho/ho-kinh-doanh
 
 - Tài khoản Hộ kinh doanh
 - Quản lý doanh thu: Soundbox · Liên kết phần mềm bán hàng · (SoftPOS/SmartPOS/SoundPOS theo chương trình ưu đãi)
