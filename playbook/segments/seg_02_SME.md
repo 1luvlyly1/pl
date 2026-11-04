@@ -30,38 +30,38 @@ updated: 2026-11-02
 **Tài khoản & Gói giải pháp**
 | Mã | Sản phẩm | Rủi ro chính | Nhạy với sự kiện | Chiều tác động khi sự kiện xấu |
 |---|---|---|---|---|
-| `SME-ACC-01` | Tài khoản doanh nghiệp | `LQ` `FR` `CO` | Dòng tiền, lừa đảo BEC, AML | Số dư giảm; giao dịch bất thường |
-| `SME-ACC-02` | Tài khoản vốn | `CO` `MR` | Quy định đầu tư nước ngoài, ngoại hối | Dòng vốn FDI/góp vốn dừng |
-| `SME-ACC-03` | Tài khoản giữ hộ thương mại | `RP` `CO` | Tranh chấp hợp đồng mua bán | Tranh chấp giải ngân giữ hộ |
-| `SME-ACC-04` | Tài khoản giữ hộ bất động sản | `RP` `CO` | Pháp lý giao dịch BĐS | Tranh chấp, phong tỏa |
-| `SME-ACC-05` | Tài khoản ký quỹ | `CO` `MR` | Bảo lãnh, giao dịch có điều kiện | Ký quỹ bị phong tỏa/giải tỏa đột ngột |
-| `SME-PKG-01` | BusinessOne Plus / Connect / Premium | `BR` | Hoạt động DN giảm | Hạ gói, đóng gói |
-| `SME-PKG-02` | MerchantOne | `BR` `OR` | Doanh thu bán lẻ (cạnh `L06`) | Giảm giao dịch nhận tiền |
-| `SME-REV-01` | SoftPOS; liên kết phần mềm bán hàng | `OR` `FR` | Sự cố, gian lận thẻ | Chargeback, gián đoạn |
+| `SME-ACC-01` | Tài khoản doanh nghiệp | `LQ` `FR` `CO` | **P1:** email giả đối tác (BEC), chiếm quyền tài khoản<br>**P2:** dòng tiền giảm, bị chậm thanh toán; AML | **P1:** chuyển tiền nhầm cho đối tượng lừa đảo (`X04`)<br>**P2:** số dư giảm; giao dịch bất thường |
+| `SME-ACC-02` | Tài khoản vốn | `CO` `MR` | **P2:** quy định đầu tư nước ngoài, ngoại hối; FDI rút<br>**P3 (+):** FDI tăng, dịch chuyển chuỗi cung ứng | **P2:** dòng vốn FDI/góp vốn dừng<br>**(+):** dòng vốn mới |
+| `SME-ACC-03` | Tài khoản giữ hộ thương mại | `RP` `CO` | **P2:** tranh chấp hợp đồng mua bán, đối tác vỡ nợ | **P2:** tranh chấp giải ngân giữ hộ |
+| `SME-ACC-04` | Tài khoản giữ hộ bất động sản | `RP` `CO` | **P1:** dự án bị dừng, thanh tra<br>**P2:** pháp lý giao dịch BĐS | **P1:** phong tỏa<br>**P2:** tranh chấp |
+| `SME-ACC-05` | Tài khoản ký quỹ | `CO` `MR` | **P2:** bảo lãnh bị gọi, giao dịch có điều kiện tranh chấp | **P2:** ký quỹ bị phong tỏa/giải tỏa đột ngột |
+| `SME-PKG-01` | BusinessOne Plus / Connect / Premium | `BR` | **P3:** hoạt động DN giảm, cắt giảm chi phí | **P3:** hạ gói, đóng gói |
+| `SME-PKG-02` | MerchantOne | `BR` `OR` | **P2:** doanh thu bán lẻ giảm, sức mua yếu (cạnh `L06`)<br>**P3 (+):** mùa mua sắm | **P2:** giảm giao dịch nhận tiền<br>**(+):** giao dịch tăng |
+| `SME-REV-01` | SoftPOS; liên kết phần mềm bán hàng | `OR` `FR` | **P1:** gian lận thẻ, sự cố<br>**P2:** sức mua giảm | **P1:** chargeback, gián đoạn<br>**P2:** doanh số giảm |
 
 **Thanh toán**
 | Mã | Sản phẩm | Rủi ro chính | Nhạy với sự kiện | Chiều tác động khi sự kiện xấu |
 |---|---|---|---|---|
-| `SME-PAY-01` | Thanh toán tiền hàng hóa, dịch vụ | `FR` `OR` | BEC, sự cố | Chuyển nhầm/lừa đảo |
-| `SME-PAY-02` | Thẻ tín dụng DN (Visa Business Platinum) | `CR` `FR` | Dòng tiền DN | Dư nợ thẻ tăng, chậm trả |
-| `SME-PAY-03` | Thẻ thanh toán DN | `FR` | Gian lận | |
-| `SME-PAY-04` | Giao dịch ngoại tệ | `MR` `CO` | Tỷ giá, quy định ngoại hối | Chi phí nhập khẩu tăng |
-| `SME-PAY-05` | Thanh toán hóa đơn | `OR` | Sự cố | |
-| `SME-PAY-06` | Thanh toán lương | `CR` (gián tiếp) `BR` | **Tín hiệu then chốt cạnh `L02`** | Trả lương trễ/giảm = DN căng thẳng + rủi ro lan sang nhân viên |
-| `SME-PAY-07` | Chuyển tiền đi nước ngoài | `CO` `MR` | Trừng phạt, AML, tỷ giá | Giao dịch bị giữ lại |
-| `SME-PAY-08` | Chuyển tiền nộp ngân sách nhà nước | `CO` | Thay đổi thuế | Nộp thuế chậm = dấu hiệu thiếu tiền |
+| `SME-PAY-01` | Thanh toán tiền hàng hóa, dịch vụ | `FR` `OR` | **P1:** BEC, đổi tài khoản thụ hưởng; sự cố | **P1:** chuyển nhầm/lừa đảo (`X04`); thanh toán chậm |
+| `SME-PAY-02` | Thẻ tín dụng DN (Visa Business Platinum) | `CR` `FR` | **P1:** lộ dữ liệu thẻ<br>**P2:** dòng tiền DN giảm | **P1:** giao dịch gian lận<br>**P2:** dư nợ thẻ tăng, chậm trả |
+| `SME-PAY-03` | Thẻ thanh toán DN | `FR` | **P1:** gian lận thẻ, lộ dữ liệu thẻ | **P1:** giao dịch trái phép, tra soát |
+| `SME-PAY-04` | Giao dịch ngoại tệ | `MR` `CO` | **P2:** tỷ giá, USD tăng; quy định ngoại hối<br>**P3 (+):** USD tăng với DN xuất khẩu | **P2:** chi phí nhập khẩu tăng<br>**(+):** doanh thu xuất khẩu quy đổi tăng, nhu cầu bán ngoại tệ (`O3`) |
+| `SME-PAY-05` | Thanh toán hóa đơn | `OR` | **P1:** sự cố<br>**P3:** đổi nhà cung cấp dịch vụ | **P1:** hóa đơn trễ hạn<br>**P3:** giảm giao dịch |
+| `SME-PAY-06` | Thanh toán lương | `CR` (gián tiếp) `BR` | **P1:** DN chậm hoặc giảm lương<br>**P2:** thuế quan, mất đơn, đơn hàng giảm<br>**P3 (+):** tuyển dụng mới | **P1:** trả lương trễ/giảm = DN căng thẳng, lan sang nhân viên (tín hiệu then chốt cạnh `L02`, `S01`)<br>**P2:** quỹ lương giảm dần<br>**(+):** tài khoản lương mới |
+| `SME-PAY-07` | Chuyển tiền đi nước ngoài | `CO` `MR` | **P1:** trừng phạt<br>**P2:** AML, tỷ giá | **P1:** giao dịch bị giữ lại<br>**P2:** rà soát, chi phí tăng |
+| `SME-PAY-08` | Chuyển tiền nộp ngân sách nhà nước | `CO` | **P2:** thay đổi thuế, hóa đơn<br>**P3:** lịch nộp thuế | **P2:** nộp thuế chậm = dấu hiệu thiếu tiền (`S10`)<br>**P3:** giao dịch dồn kỳ |
 
 **Tiền gửi, Ngân hàng số, Vay, Bảo lãnh, Bảo hiểm**
 | Mã | Sản phẩm | Rủi ro chính | Nhạy với sự kiện | Chiều tác động khi sự kiện xấu |
 |---|---|---|---|---|
-| `SME-DEP-01` | Tiền gửi có kỳ hạn / linh hoạt | `LQ` | Nhu cầu vốn lưu động | Tất toán sớm |
-| `SME-DEP-02` | Chứng chỉ tiền gửi Bảo Lộc | `LQ` `MR` | Lãi suất | |
-| `SME-DIG-01` | Techcombank Business; F@st EBank | `OR` `FR` | Sự cố, chuyển đổi nền tảng, chiếm đoạt quyền truy cập | Không chi lương/thanh toán đúng hạn |
-| `SME-LN-01` | Giải pháp tín dụng linh hoạt (Hybrid) | `CR` `CL` | Doanh thu, TSBĐ | DPD |
-| `SME-LN-02` | Tín dụng kết nối Misa Lending | `CR` `OR` | Chất lượng dữ liệu kế toán, sự cố đối tác dữ liệu | Hạn mức dựa trên dữ liệu có thể sai lệch nếu dữ liệu bị thao túng |
-| `SME-LN-03` | Giải pháp tín dụng B1CP | `CR` | Dòng tiền | DPD |
-| `SME-GTE-01` | Bảo lãnh mua sắm công | `CR` `CO` | Chậm giải ngân vốn đầu tư công, vi phạm đấu thầu (cạnh `L12`) | Bị yêu cầu thực hiện bảo lãnh |
-| `SME-INS-01` | BH sức khỏe nhóm; BH toàn diện | `INS` | Dịch bệnh, cháy nổ | Claim |
+| `SME-DEP-01` | Tiền gửi có kỳ hạn / linh hoạt | `LQ` | **P2:** cần vốn lưu động, đơn hàng giảm<br>**P3:** lãi suất | **P2:** tất toán sớm<br>**P3:** kỳ hạn ngắn lại |
+| `SME-DEP-02` | Chứng chỉ tiền gửi Bảo Lộc | `LQ` `MR` | **P1:** tin đồn về ngân hàng<br>**P2:** lãi suất | **P1:** yêu cầu bán lại<br>**P2:** không mua mới |
+| `SME-DIG-01` | Techcombank Business; F@st EBank | `OR` `FR` | **P1:** sự cố, chiếm quyền truy cập; giai đoạn chuyển đổi nền tảng | **P1:** không chi lương/thanh toán đúng hạn; chuyển tiền trái phép (`X03`) |
+| `SME-LN-01` | Giải pháp tín dụng linh hoạt (Hybrid) | `CR` `CL` | **P2:** doanh thu giảm do thuế quan, giá đầu vào, cước vận tải, sức mua (xem file ngành)<br>**P3:** TSBĐ giảm giá | **P2:** DPD<br>**P3:** LTV xấu đi |
+| `SME-LN-02` | Tín dụng kết nối Misa Lending | `CR` `OR` | **P1:** sự cố, lộ dữ liệu ở đối tác dữ liệu (`L13`)<br>**P2:** dữ liệu kế toán bị thao túng | **P1:** gián đoạn xét duyệt<br>**P2:** hạn mức dựa trên dữ liệu sai lệch |
+| `SME-LN-03` | Giải pháp tín dụng B1CP | `CR` | **P2:** dòng tiền giảm | **P2:** DPD |
+| `SME-GTE-01` | Bảo lãnh mua sắm công | `CR` `CO` | **P1:** điều tra sai phạm đấu thầu<br>**P2:** chậm giải ngân vốn đầu tư công (cạnh `L12`)<br>**P3 (+):** đầu tư công tăng | **P1:** bị yêu cầu thực hiện bảo lãnh<br>**P2:** nhà thầu thiếu vốn, gia hạn bảo lãnh<br>**(+):** nhu cầu bảo lãnh tăng (`O3`) |
+| `SME-INS-01` | BH sức khỏe nhóm; BH toàn diện | `INS` | **P1:** cháy nổ, thiên tai<br>**P2:** dịch bệnh | **P1:** claim lớn<br>**P2:** claim sức khỏe tăng |
 
 ## (d) Tín hiệu sớm nội bộ – SME
 - Lô chi lương **trễ ngày**, **giảm số nhân viên** hoặc **giảm tổng quỹ lương**
@@ -80,7 +80,6 @@ updated: 2026-11-02
 
 ## (f) Danh mục sản phẩm & URL nguồn (chốt 26/10/2026)
 
-Nguồn: https://techcombank.com/ho-kinh-doanh-va-doanh-nghiep-nho/doanh-nghiep-nho
 
 - Tài khoản: Tài khoản DN · Tài khoản vốn · Giữ hộ thương mại · Giữ hộ BĐS · Ký quỹ
 - Gói giải pháp: BusinessOne Plus · BusinessOne Connect · BusinessOne Premium · MerchantOne
